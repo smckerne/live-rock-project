@@ -11,7 +11,7 @@ def rgb_to_hsv(rgb_array):
     return mcolors.rgb_to_hsv(rgb_normalized)
 
 #load mesh
-mesh = trimesh.load('testing.obj')
+mesh = trimesh.load('ROCK.obj')
 
 #pulls the data from the overlay jpeg to assign colors to each face
 
@@ -27,7 +27,7 @@ face_colors_hsv = rgb_to_hsv(face_colors_rgba)
 face_areas = mesh.area_faces
 
 #establish training faces, existing faces where the species is already known, and labeling them for classifier
-training_face_indices = [65067, 80438, 27269, 16395, 63268, 65349]
+training_face_indices = [X, X, Y, Y, Z, Z]
 
 training_labels = [0, 0, 1, 1, 2, 2]  # The category for each sample face above
 
