@@ -26,7 +26,7 @@ face_colors_hsv = rgb_to_hsv(face_colors_rgba)
 #calculate area of each face
 face_areas = mesh.area_faces
 
-#establish training faces, existing faces where the species is already known, and labeling them for classifier
+#establish training faces, existing faces where the species is already known, and labeling them for classifier. so far 0=bare rock, 1=green algae and 2=red algae
 training_face_indices = [X, X, Y, Y, Z, Z]
 
 training_labels = [0, 0, 1, 1, 2, 2]  # The category for each sample face above
