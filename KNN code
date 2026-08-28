@@ -1,0 +1,72 @@
+import numpy as np
+import trimesh
+from sklearn.neighbors import KNeighborsClassifier
+import matplotlib.colors as mcolors
+
+#setting up python to convert the RGBA values to HSV
+def rgb_to_hsv(rgb_array):
+
+    rgb_normalized = rgb_array[:, :3] / 255.0
+
+    return mcolors.rgb_to_hsv(rgb_normalized)
+
+#load mesh
+mesh = trimesh.load('testing.obj')
+
+#pulls the data from the overlay jpeg to assign colors to each face
+
+if hasattr(mesh.visual, 'to_color'):
+    mesh.visual = mesh.visual.to_color()
+
+face_colors_rgba = mesh.visual.face_colors
+
+#converting RGBA colors to HSV going forward
+face_colors_hsv = rgb_to_hsv(face_colors_rgba)
+
+#calculate area of each face
+face_areas = mesh.area_faces
+
+#establish training faces, existing faces where the species is already known, and labeling them for classifier
+training_face_indices = [65067, 80438, 27269, 16395, 63268, 65349]
+
+training_labels = [0, 0, 1, 1, 2, 2]  # The category for each sample face above
+
+#extracting the HSV values for training
+X_train = face_colors_hsv[training_face_indices]
+
+y_train = np.array(training_labels)
+
+#training the model, setting n=3 nearest neigbors
+knn = KNeighborsClassifier(n_neighbors=3)
+
+knn.fit(X_train, y_train)
+
+all_predicted_categories = knn.predict(face_colors_hsv)
+
+#dictionary to hold areas and face counts
+
+category_areas = {}
+
+category_counts = {}
+
+for face_idx, category in enumerate(all_predicted_categories):
+    area = face_areas[face_idx]
+
+    #add to area tally
+
+    category_areas[category] = category_areas.get(category, 0.0) + area
+
+    #add to count tally
+
+    category_counts[category] = category_counts.get(category, 0) + 1
+
+#printing results
+
+print("--- Mesh Face Classification Results ---")
+
+for cat in sorted(category_areas.keys()):
+    print(f"Category {cat}:")
+
+    print(f"  Total Faces: {category_counts[cat]}")
+
+    print(f"  Total Surface Area: {category_areas[cat]:.4f} units²")
