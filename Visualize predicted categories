@@ -1,0 +1,13 @@
+#paste this at the very end of the KNN code to export a PLY mesh file with the newly classified faces painted back onto the model
+
+palette = np.array([
+    [230,  57,  70, 255],   #category 0: red
+    [ 42, 157, 143, 255],   #category 1: teal
+    [244, 162,  97, 255],  #category 2: orange
+    [50, 205, 50, 255],    #category 3: green
+], dtype=np.uint8)
+
+vis_mesh = mesh.copy()
+vis_mesh.visual.face_colors = palette[all_predicted_categories]
+
+vis_mesh.export("grouped_facesT11R1.ply")  
