@@ -32,7 +32,7 @@ training_face_indices = [x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x]
 training_labels = [0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3]  # The category for each sample face above
 
 #training labels:
- # 0 = bare rock, 1 = GHA, 2 = CCA, 3 = encrusting fan algae
+ # 0 = bare rock, 1 = GHA, 2 = CCA, 3 = brown algae
 
 #extracting the HSV values for training
 X_train = face_colors_hsv[training_face_indices]
