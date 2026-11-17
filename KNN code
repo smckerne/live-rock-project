@@ -11,7 +11,7 @@ def rgb_to_hsv(rgb_array):
     return mcolors.rgb_to_hsv(rgb_normalized)
 
 #load mesh
-mesh = trimesh.load('ROCK.obj')
+mesh = trimesh.load('test.obj')
 
 #pulls the data from the overlay jpeg to assign colors to each face
 
@@ -26,10 +26,13 @@ face_colors_hsv = rgb_to_hsv(face_colors_rgba)
 #calculate area of each face
 face_areas = mesh.area_faces
 
-#establish training faces, existing faces where the species is already known, and labeling them for classifier. so far 0=bare rock, 1=green algae and 2=red algae
-training_face_indices = [X, X, Y, Y, Z, Z]
+#establish training faces, existing faces where the species is already known, and labeling them for classifier
+training_face_indices = [x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x]
 
-training_labels = [0, 0, 1, 1, 2, 2]  # The category for each sample face above
+training_labels = [0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3]  # The category for each sample face above
+
+#training labels:
+ # 0 = bare rock, 1 = GHA, 2 = CCA, 3 = encrusting fan algae
 
 #extracting the HSV values for training
 X_train = face_colors_hsv[training_face_indices]
