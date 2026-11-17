@@ -4,7 +4,7 @@ palette = np.array([
     [230,  57,  70, 255],   #category 0: red
     [ 42, 157, 143, 255],   #category 1: teal
     [244, 162,  97, 255],  #category 2: orange
-    [50, 205, 50, 255],    #category 3: green
+    [0, 100, 0, 255],    #category 3: green
 ], dtype=np.uint8)
 
 vis_mesh = mesh.copy()
